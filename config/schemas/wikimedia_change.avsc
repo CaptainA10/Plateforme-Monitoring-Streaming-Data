@@ -1,0 +1,56 @@
+{
+  "namespace": "com.monitoring.streaming",
+  "type": "record",
+  "name": "WikimediaChange",
+  "doc": "Real-time events from Wikimedia Recent Changes stream",
+  "fields": [
+    {
+      "name": "id",
+      "type": ["null", "long"],
+      "default": null,
+      "doc": "Event ID"
+    },
+    {
+      "name": "user",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "User who made the change"
+    },
+    {
+      "name": "title",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Title of the page"
+    },
+    {
+      "name": "comment",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Edit comment"
+    },
+    {
+      "name": "wiki",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Wiki identifier (e.g., frwiki, enwiki)"
+    },
+    {
+      "name": "timestamp",
+      "type": "long",
+      "logicalType": "timestamp-millis",
+      "doc": "Event timestamp in milliseconds"
+    },
+    {
+      "name": "bot",
+      "type": "boolean",
+      "default": false,
+      "doc": "True if the change was made by a bot"
+    },
+    {
+      "name": "type",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Type of change (edit, new, etc.)"
+    }
+  ]
+}

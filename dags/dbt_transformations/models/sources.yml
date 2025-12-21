@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: raw_data
+    database: effidic-stage-2026
+    schema: monitoring_datalake
+    tables:
+      - name: user_activity
