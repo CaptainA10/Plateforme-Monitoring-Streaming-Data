@@ -39,6 +39,6 @@ jobs:
           pip install dbt-bigquery
       - name: dbt debug (dry run)
         run: |
-          cd dbt_transformations
+          cd dags/dbt_transformations
           # We don't have the keyfile in CI, so we just check if the project structure is valid
           dbt parse --profiles-dir .
