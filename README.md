@@ -1,5 +1,5 @@
-# 🚀 Plateforme de Monitoring Streaming & Batch
-Modern Data Stack – Pipeline de Données pour l'Analyse d'Activité en Temps Réel
+# 🚀 Streaming & Batch Monitoring Platform
+Modern Data Stack – Data Pipeline for Real-Time Activity Analysis
 
 [![Kafka](https://img.shields.io/badge/Apache-Kafka-black?style=for-the-badge&logo=apachekafka)](https://kafka.apache.org/)
 [![Spark](https://img.shields.io/badge/Apache-Spark-E25A1C?style=for-the-badge&logo=apachespark&logoColor=white)](https://spark.apache.org/)
@@ -13,62 +13,62 @@ Modern Data Stack – Pipeline de Données pour l'Analyse d'Activité en Temps R
 
 ## ⭐ Features
 
-- **Architecture Lambda** complète (Streaming & Batch)
-- Ingestion temps réel via **Kafka & Schema Registry** (Avro)
-- Traitement distribué avec **PySpark Structured Streaming**
-- Data Warehouse Cloud sur **Google BigQuery**
-- Orchestration complète avec **Apache Airflow**
-- Transformations modulaires et tests avec **dbt**
-- Dashboards interactifs **Streamlit** (Opérationnel) & **QlikSense** (Analytique)
-- Environnement 100% reproductible via **Docker**
+- Complete **Lambda Architecture** (Streaming & Batch)
+- Real-time ingestion via **Kafka & Schema Registry** (Avro)
+- Distributed processing with **PySpark Structured Streaming**
+- Cloud Data Warehouse on **Google BigQuery**
+- Full orchestration with **Apache Airflow**
+- Modular transformations and testing with **dbt**
+- Interactive dashboards: **Streamlit** (Operational) & **QlikSense** (Analytical)
+- 100% reproducible environment via **Docker**
 
 ---
 
-## 🧠 Architecture Lambda & Concepts
+## 🧠 Lambda Architecture & Concepts
 
-Ce projet implémente une **Architecture Lambda**, une approche robuste pour traiter massivement les données en combinant deux flux :
+This project implements a **Lambda Architecture**, a robust approach for massive data processing by combining two flows:
 
-### 1. Speed Layer (Temps Réel)
-- **Flux** : Kafka → PySpark Streaming → MongoDB.
-- **Pourquoi le "compte-goutte" (Streaming) ?** : Pour obtenir une latence minimale. On traite chaque événement dès qu'il arrive pour détecter des anomalies ou surveiller l'activité en direct sur le dashboard Streamlit. C'est idéal pour la réactivité immédiate.
+### 1. Speed Layer (Real-Time)
+- **Flow**: Kafka → PySpark Streaming → MongoDB.
+- **Why "drip-feed" (Streaming)?**: To achieve minimal latency. Each event is processed as soon as it arrives to detect anomalies or monitor activity live on the Streamlit dashboard. This is ideal for immediate responsiveness.
 
-### 2. Batch Layer (Historique)
-- **Flux** : MongoDB → Airflow → BigQuery → dbt.
-- **Rôle** : Fournir une vue exhaustive et ultra-précise de toutes les données historiques. C'est ici que dbt intervient pour transformer les données brutes en KPIs fiables pour le dashboard QlikSense.
+### 2. Batch Layer (Historical)
+- **Flow**: MongoDB → Airflow → BigQuery → dbt.
+- **Role**: Provide a comprehensive and highly accurate view of all historical data. This is where dbt transforms raw data into reliable KPIs for the QlikSense dashboard.
 
 ### 3. Serving Layer
-- Fournit les résultats aux utilisateurs via les dashboards (Streamlit pour le live, Qlik pour l'analytique).
+- Delivers results to users via dashboards (Streamlit for live, Qlik for analytics).
 
 ---
 
 ## 🏗️ Architecture Overview
 
-Cette plateforme traite des flux massifs d'événements (activité utilisateur et modifications Wikimedia) pour fournir des indicateurs de performance (KPIs) en temps réel et des analyses historiques.
+This platform processes massive event streams (user activity and Wikimedia changes) to provide real-time Key Performance Indicators (KPIs) and historical analysis.
 
-### 🔧 Composants
+### 🔧 Components
 
-| Couche | Technologie | Rôle |
+| Layer | Technology | Role |
 |-------|------------|---------|
-| **Ingestion** | Kafka, Schema Registry | Collecte des flux Avro (User Activity & Wikimedia) |
-| **Streaming** | PySpark | Agrégations glissantes, Watermarking & Nettoyage |
-| **Stockage** | MongoDB & BigQuery | Raw Data Lake (NoSQL) & Data Warehouse (Cloud) |
-| **Orchestration** | Airflow | Scheduling des DAGs, jobs batch et dbt |
-| **Transformation** | dbt Core | Modélisation SQL, KPIs & Qualité de données |
-| **Visualisation** | Streamlit / Qlik | Dashboards temps réel et pilotage BI |
+| **Ingestion** | Kafka, Schema Registry | Collecting Avro streams (User Activity & Wikimedia) |
+| **Streaming** | PySpark | Sliding aggregations, Watermarking & Cleaning |
+| **Storage** | MongoDB & BigQuery | Raw Data Lake (NoSQL) & Data Warehouse (Cloud) |
+| **Orchestration** | Airflow | DAG scheduling, batch jobs and dbt |
+| **Transformation** | dbt Core | SQL modeling, KPIs & Data Quality |
+| **Visualization** | Streamlit / Qlik | Real-time dashboards and BI monitoring |
 
 ---
 
-## 📊 Résultats Analytiques & KPIs
+## 📊 Analytical Results & KPIs
 
-Le pipeline produit des tables prêtes pour l'analyse dans BigQuery :
+The pipeline produces analysis-ready tables in BigQuery:
 
 ### **`monitoring_datalake.fct_daily_user_metrics`**
 
-#### Indicateurs Principaux
-- **Volume d'événements** → `event_count`
-- **Utilisateurs Uniques** → `unique_users`
+#### Key Indicators
+- **Event Volume** → `event_count`
+- **Unique Users** → `unique_users`
 
-#### Dimensions d'Analyse
+#### Analysis Dimensions
 - `activity_date`
 - `event_type` (CLICK, VIEW, PURCHASE, etc.)
 
@@ -76,34 +76,34 @@ Le pipeline produit des tables prêtes pour l'analyse dans BigQuery :
 
 ## 📈 Dashboard Preview
 
-Accédez aux interfaces de contrôle de la plateforme :
+Access the platform's control interfaces:
 
-| Outil | URL / Accès | Utilité |
+| Tool | URL / Access | Purpose |
 | :--- | :--- | :--- |
-| **QlikSense** | [Live Dashboard](https://yr9pfbp2oxzezb5.fr.qlikcloud.com/sense/app/05d3b740-87d3-4ba7-9215-2f8479c83132) | Dashboard Analytique (BigQuery) |
-| **Streamlit** | [http://localhost:8501](http://localhost:8501) | Dashboard Temps Réel (MongoDB) |
-| **Airflow** | [http://localhost:8082](http://localhost:8082) | Orchestration & Monitoring des Pipelines |
-| **Kafka UI** | [http://localhost:9021](http://localhost:9021) | Gestion des Topics & Schémas Avro |
-| **Spark UI** | [http://localhost:9090](http://localhost:9090) | Monitoring des jobs de Streaming |
+| **QlikSense** | [Live Dashboard](https://yr9pfbp2oxzezb5.fr.qlikcloud.com/sense/app/05d3b740-87d3-4ba7-9215-2f8479c83132) | Analytical Dashboard (BigQuery) |
+| **Streamlit** | [http://localhost:8501](http://localhost:8501) | Real-Time Dashboard (MongoDB) |
+| **Airflow** | [http://localhost:8082](http://localhost:8082) | Pipeline Orchestration & Monitoring |
+| **Kafka UI** | [http://localhost:9021](http://localhost:9021) | Topics & Avro Schemas Management |
+| **Spark UI** | [http://localhost:9090](http://localhost:9090) | Streaming Jobs Monitoring |
 
 ---
 
 ## 🔐 Data Quality (DataOps via dbt)
 
-La fiabilité des données est assurée par des tests automatisés dbt :
-- `not_null` sur les clés primaires et dimensions critiques.
-- Tests de validité des KPIs.
+Data reliability is ensured through automated dbt tests:
+- `not_null` on primary keys and critical dimensions.
+- KPI validity tests.
 
-**Status:** ✔️ *PASS — Tous les tests de qualité validés*
+**Status:** ✔️ *PASS — All quality tests validated*
 
 ---
 
 ## 🛠️ Tech Stack
 
-### Langages & Frameworks
+### Languages & Frameworks
 - **Python 3.9+** (Ingestion, Spark, Streamlit)
 - **SQL** (BigQuery Standard SQL, dbt)
-- **Avro** (Sérialisation des données)
+- **Avro** (Data serialization)
 
 ### Infrastructure
 - **Docker & Docker Compose**
@@ -112,22 +112,22 @@ La fiabilité des données est assurée par des tests automatisés dbt :
 
 ---
 
-## 🧩 Installation & Démarrage
+## 🧩 Installation & Setup
 
 ```bash
-# 1. Lancer l'infrastructure (Kafka, Spark, Airflow, Mongo)
+# 1. Launch infrastructure (Kafka, Spark, Airflow, Mongo)
 docker-compose up -d
 
-# 2. Installer les dépendances Python
+# 2. Install Python dependencies
 pip install -r requirements.txt
 
-# 3. Lancer les producteurs de données
-python src/ingestion/main.py           # Activité utilisateur
-python src/ingestion/wikimedia_producer.py # Flux Wikimedia
+# 3. Start data producers
+python src/ingestion/main.py           # User activity
+python src/ingestion/wikimedia_producer.py # Wikimedia stream
 ```
 
-### Configuration dbt
-Créez ou éditez votre fichier `~/.dbt/profiles.yml` :
+### dbt Configuration
+Create or edit your `~/.dbt/profiles.yml` file:
 ```yaml
 monitoring_platform:
   target: dev
@@ -143,17 +143,17 @@ monitoring_platform:
 
 ---
 
-## 📚 Documentation Avancée
+## 📚 Advanced Documentation
 
-*   🔍 **[Guide de Connexion BigQuery](docs/BIGQUERY_CONNECTION_GUIDE.md)** : Paramètres Simba/ODBC pour BI.
-*   📂 **[Sources des Données](docs/DATA_SOURCES.md)** : Origine et signification des données.
-*   🚀 **[Rapport d'Industrialisation](docs/INDUSTRIALIZATION.md)** : Sécurité, CI/CD, FinOps.
+*   🔍 **[BigQuery Connection Guide](docs/BIGQUERY_CONNECTION_GUIDE.md)**: Simba/ODBC parameters for BI.
+*   📂 **[Data Sources](docs/DATA_SOURCES.md)**: Origin and meaning of data.
+*   🚀 **[Industrialization Report](docs/INDUSTRIALIZATION.md)**: Security, CI/CD, FinOps.
 
 ---
 
 ## 👨‍💻 Author
 
 **NGUETTE FANE Gad**
-Data Engineer – Plateforme de Monitoring Streaming
+Data Engineer – Streaming Monitoring Platform
 
-📧 Contact : [nguettefanegad@gmail.com]
+📧 Contact: [nguettefanegad@gmail.com]
